@@ -1,0 +1,278 @@
+/* ═══════════════════════════════════════
+   QR CODE PAGE STYLES
+   ═══════════════════════════════════════ */
+
+/* ─── STAT CARDS ──────────────────────── */
+.qr-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.qr-stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow);
+}
+
+.qr-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.qr-stat-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.qr-stat-blue .qr-stat-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+.qr-stat-green .qr-stat-icon {
+    background: #dcfce7;
+    color: #16a34a;
+}
+.qr-stat-orange .qr-stat-icon {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.qr-stat-val {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+}
+.qr-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* ─── QR GRID ─────────────────────────── */
+.qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 0;
+}
+
+/* ─── QR CARD ─────────────────────────── */
+.qr-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition:
+        box-shadow 0.2s,
+        transform 0.2s;
+}
+.qr-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+.qr-card-has {
+    border-top: 3px solid #22c55e;
+}
+.qr-card-empty {
+    border-top: 3px solid #f59e0b;
+}
+
+.qr-card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.qr-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 16px 12px;
+}
+
+.qr-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.qr-card-icon svg {
+    width: 22px;
+    height: 22px;
+}
+.qr-icon-blue {
+    background: #dbeafe;
+    color: #2563eb;
+}
+.qr-icon-red {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.qr-card-info {
+    flex: 1;
+    min-width: 0;
+    padding-right: 60px;
+}
+.qr-card-kode {
+    font-family: monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--blue-mid);
+    background: #eff6ff;
+    padding: 2px 8px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+.qr-card-nama {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+.qr-card-lokasi {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* QR Preview */
+.qr-preview-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: #f8fafc;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    min-height: 160px;
+}
+
+.qr-image {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: white;
+    padding: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.qr-empty-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #cbd5e1;
+}
+.qr-empty-placeholder svg {
+    width: 80px;
+    height: 80px;
+}
+.qr-empty-placeholder span {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* QR Actions */
+.qr-card-actions {
+    display: flex;
+    gap: 6px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+}
+
+.btn-qr-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.15s;
+    flex: 1;
+}
+.btn-qr-action svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+}
+
+.btn-qr-cetak {
+    background: #1e40af;
+    color: white;
+}
+.btn-qr-cetak:hover {
+    background: #1e3a8a;
+}
+
+.btn-qr-download {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+.btn-qr-download:hover {
+    background: #dcfce7;
+}
+
+.btn-qr-regenerate {
+    background: #fff7ed;
+    color: #d97706;
+    border: 1px solid #fed7aa;
+}
+.btn-qr-regenerate:hover {
+    background: #fef3c7;
+}
+
+.btn-qr-generate-now {
+    background: var(--blue-mid);
+    color: white;
+}
+.btn-qr-generate-now:hover {
+    background: var(--blue-primary);
+}
+
+/* ─── RESPONSIVE ──────────────────────── */
+@media (max-width: 768px) {
+    .qr-stats {
+        grid-template-columns: 1fr;
+    }
+    .qr-grid {
+        grid-template-columns: 1fr;
+    }
+}

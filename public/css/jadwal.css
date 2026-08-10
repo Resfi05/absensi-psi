@@ -1,0 +1,291 @@
+/* ═══════════════════════════════════════
+   JADWAL PAGE STYLES
+   ═══════════════════════════════════════ */
+
+/* ─── STATS ───────────────────────────── */
+.jadwal-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.jadwal-stat {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow);
+}
+
+.jadwal-stat-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.jadwal-stat-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.jadwal-stat-val {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1;
+}
+.jadwal-stat-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 4px;
+}
+.jadwal-stat-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* ─── MAIN GRID ───────────────────────── */
+.jadwal-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 20px;
+    align-items: start;
+}
+
+.jadwal-table-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.jadwal-side-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ─── FILTER FORM ─────────────────────── */
+.jadwal-filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    flex-wrap: wrap;
+}
+
+/* ─── FREK BADGE ──────────────────────── */
+.jadwal-frek-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 20px;
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+/* ─── FREK ITEM ───────────────────────── */
+.frek-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+/* ─── KALENDER ────────────────────────── */
+.kal-nav {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.15s;
+    background: white;
+}
+.kal-nav:hover {
+    background: var(--bg);
+    color: var(--text-main);
+}
+
+.kal-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 4px;
+}
+.kal-head-cell {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding: 4px 0;
+}
+
+.kal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.kal-cell {
+    min-height: 40px;
+    border-radius: 6px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    background: white;
+    border: 1px solid transparent;
+    cursor: default;
+    transition: background 0.1s;
+}
+
+.kal-cell-out {
+    opacity: 0.3;
+}
+
+.kal-cell-today {
+    background: #eff6ff;
+    border-color: var(--blue-mid);
+}
+.kal-cell-today .kal-date {
+    background: var(--blue-mid);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kal-cell-late {
+    background: #fff1f2;
+}
+.kal-cell-warn {
+    background: #fffbeb;
+}
+
+.kal-date {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kal-dots {
+    display: flex;
+    gap: 2px;
+    justify-content: center;
+}
+.kal-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.kal-dot-green {
+    background: #22c55e;
+}
+.kal-dot-orange {
+    background: #f59e0b;
+}
+.kal-dot-red {
+    background: #ef4444;
+}
+
+.kal-count {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.kal-legend {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.kal-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* ─── RESPONSIVE ──────────────────────── */
+@media (max-width: 1200px) {
+    .jadwal-main-grid {
+        grid-template-columns: 1fr;
+    }
+    .jadwal-side-col {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .jadwal-side-col > * {
+        flex: 1;
+        min-width: 280px;
+    }
+    .jadwal-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .jadwal-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* ─── FIX LEBAR ───────────────────────── */
+.jadwal-main-grid {
+    grid-template-columns: 1fr 280px;
+}
+
+.kal-cell {
+    min-height: 34px;
+}
+
+.kal-date {
+    font-size: 0.7rem;
+    width: 20px;
+    height: 20px;
+}
+
+.kal-legend {
+    gap: 8px;
+}
+
+.kal-legend-item {
+    font-size: 0.68rem;
+}
+
+.jadwal-side-col .card {
+    overflow: hidden;
+}
