@@ -1,6 +1,21 @@
 FROM php:8.2-apache
 
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev unzip libzip-dev zip libonig-dev libxml2-dev libcurl4-openssl-dev && docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install pdo pdo_mysql mbstring xml curl zip bcmath gd && apt-get clean
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    unzip \
+    libzip-dev \
+    zip \
+    libonig-dev \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libmagickwand-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql mbstring xml curl zip bcmath gd \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && apt-get clean
 
 RUN a2enmod rewrite
 

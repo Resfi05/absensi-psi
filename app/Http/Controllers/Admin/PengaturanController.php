@@ -13,7 +13,9 @@ class PengaturanController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        // 🔥 PERBAIKAN: Tambahkan load('spesialisasi') 
+        $user = Auth::user()->load('spesialisasi');
+        
         return view('admin.pengaturan.index', compact('user'));
     }
 
