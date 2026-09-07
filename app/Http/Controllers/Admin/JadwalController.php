@@ -119,7 +119,6 @@ class JadwalController extends Controller
 
         $kategori_list = KategoriBarang::where('is_active', true)->orderBy('nama')->get();
         
-        // 🔥 REVISI 1: Load relasi 'spesialisasi' (Banyak Spesialisasi) untuk form create
         $user_list = User::with('spesialisasi')->where('role', 'user')->where('is_active', true)->get();
         
         $waktu_list = ManajemenWaktu::orderBy('satuan')->orderBy('interval')->get(); 
@@ -210,14 +209,15 @@ class JadwalController extends Controller
         $jadwal->load(['barang.qrCode', 'barang.kategori', 'barang.lokasiRelasi', 'pengecekan.user', 'user']);
         $jadwal_berikutnya = $jadwal->tanggalBerikutnya();
 
-        // 🔥 REVISI 2: Filter petugas sesuai dengan relasi 'spesialisasi' (Many-to-Many)
         $petugas_sesuai = User::where('role', 'user')
             ->where('is_active', true)
             ->whereHas('spesialisasi', function($q) use ($jadwal) {
-                $q->where('kategori_barang_id', $jadwal->barang->kategori_id);
+                // Null-safe guard in case barang is missing
+                $kategori_id = $jadwal->barang?->kategori_id ?? 0;
+                $q->where('kategori_barang_id', $kategori_id);
             })->get();
 
-        $barang_satu_lokasi = $jadwal->barang->lokasi_id ? Barang::where('lokasi_id', $jadwal->barang->lokasi_id)->where('id', '!=', $jadwal->barang_id)->where('is_active', true)->with('kategori')->get() : collect();
+        $barang_satu_lokasi = ($jadwal->barang && $jadwal->barang->lokasi_id) ? Barang::where('lokasi_id', $jadwal->barang->lokasi_id)->where('id', '!=', $jadwal->barang_id)->where('is_active', true)->with('kategori')->get() : collect();
         $riwayat = Jadwal::where('barang_id', $jadwal->barang_id)->orderByDesc('tanggal_jadwal')->take(10)->get();
 
         return view('admin.jadwal.show', compact('jadwal', 'jadwal_berikutnya', 'riwayat', 'petugas_sesuai', 'barang_satu_lokasi'));
@@ -227,7 +227,6 @@ class JadwalController extends Controller
     {
         $barang_list = Barang::with(['kategori', 'lokasiRelasi'])->where('is_active', true)->whereNotNull('lokasi_id')->whereNotNull('kategori_id')->orderBy('kode_barang')->get();
         
-        // 🔥 REVISI 3: Load relasi 'spesialisasi' untuk form edit
         $user_list = User::with('spesialisasi')->where('role', 'user')->where('is_active', true)->get();
         
         $kategori_list = KategoriBarang::where('is_active', true)->get();
@@ -258,10 +257,10 @@ class JadwalController extends Controller
 
     public function destroy(Jadwal $jadwal)
     {
-    $jadwal->delete();
-    return redirect()
-        ->route('admin.jadwal.index')
-        ->with('success', 'Jadwal berhasil dihapus.');
+        $jadwal->delete();
+        return redirect()
+            ->route('admin.jadwal.index')
+            ->with('success', 'Jadwal berhasil dihapus.');
     }
 
     public function perpanjangTahunDepan(Request $request)
@@ -354,11 +353,11 @@ class JadwalController extends Controller
             ->map(function ($j) {
                 return [
                     'id'        => $j->id,
-                    'nama'      => $j->barang->nama_barang,
-                    'kode'      => $j->barang->kode_barang,
-                    'kategori'  => $j->barang->kategori->nama ?? '—',
-                    'warna'     => $j->barang->kategori->warna ?? '#94a3b8',
-                    'lokasi'    => $j->barang->lokasiRelasi->nama ?? $j->barang->lokasi ?? '—',
+                    'nama'      => $j->barang?->nama_barang ?? 'Barang Terhapus',
+                    'kode'      => $j->barang?->kode_barang ?? '-',
+                    'kategori'  => $j->barang?->kategori?->nama ?? '—',
+                    'warna'     => $j->barang?->kategori?->warna ?? '#94a3b8',
+                    'lokasi'    => $j->barang?->lokasiRelasi?->nama ?? $j->barang?->lokasi ?? '—',
                     'status'    => $j->status,
                     'frekuensi' => $j->frekuensiLabel(),
                     'jam'       => $j->jamLabel(),
@@ -405,10 +404,10 @@ class JadwalController extends Controller
         $jadwalList = $query->orderBy('tanggal_jadwal', 'asc')->get()->map(function ($j) {
             return [
                 'id'          => $j->id,
-                'kode_barang' => $j->barang->kode_barang ?? '-',
-                'nama_barang' => $j->barang->nama_barang ?? '-',
-                'kategori'    => $j->barang->kategori->nama ?? '-',
-                'lokasi'      => $j->barang->lokasiRelasi->nama ?? $j->barang->lokasi ?? '-',
+                'kode_barang' => $j->barang?->kode_barang ?? '-',
+                'nama_barang' => $j->barang?->nama_barang ?? 'Barang Terhapus',
+                'kategori'    => $j->barang?->kategori?->nama ?? '-',
+                'lokasi'      => $j->barang?->lokasiRelasi?->nama ?? $j->barang?->lokasi ?? '-',
                 'tanggal'     => \Carbon\Carbon::parse($j->tanggal_jadwal)->translatedFormat('d M Y'),
                 'status'      => $j->status,
             ];

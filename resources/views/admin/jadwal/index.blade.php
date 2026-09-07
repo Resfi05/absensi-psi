@@ -250,25 +250,25 @@
                             <td class="text-muted text-sm">{{ $jadwal->firstItem() + $i }}</td>
                             <td>
                                 <span style="font-family:monospace;font-size:0.8rem;font-weight:700;color:#2563eb;background:#eff6ff;padding:2px 8px;border-radius:5px;">
-                                    {{ $item->barang->kode_barang }}
+                                    {{ $item->barang?->kode_barang ?? 'N/A' }}
                                 </span>
                             </td>
                             <td>
                                 <div style="font-weight:600;font-size:0.875rem;color:var(--text-main);">
-                                    {{ $item->barang->nama_barang }}
+                                    {{ $item->barang?->nama_barang ?? 'Barang Telah Dihapus' }}
                                 </div>
                             </td>
                             <td>
-                                @if($item->barang->kategori)
+                                @if($item->barang?->kategori)
                                     <span class="badge-jenis"
                                           style="background:{{ $item->barang->kategori->warna }}20;color:{{ $item->barang->kategori->warna }};border:1px solid {{ $item->barang->kategori->warna }}40;">
                                         {{ $item->barang->kategori->nama }}
                                     </span>
                                 @else
-                                    <span class="badge-jenis badge-gray">{{ $item->barang->jenis_barang }}</span>
+                                    <span class="badge-jenis badge-gray">{{ $item->barang?->jenis_barang ?? '—' }}</span>
                                 @endif
                             </td>
-                            <td style="font-size:0.82rem;color:var(--text-muted);">{{ $item->barang->lokasi }}</td>
+                            <td style="font-size:0.82rem;color:var(--text-muted);">{{ $item->barang?->lokasiRelasi?->nama ?? $item->barang?->lokasi ?? '—' }}</td>
                             <td>
                                 <span class="jadwal-frek-badge">{{ $item->frekuensiLabel() }}</span>
                             </td>
@@ -392,7 +392,7 @@
                     {{-- Input Pemilih Bulan --}}
                     <input type="month" value="{{ $bulan }}" onchange="changeKalenderBulan(this.value)" 
                            style="border: none; background: transparent; font-family: inherit; font-size: 0.8rem; font-weight: 700; color: #334155; text-align: center; cursor: pointer; outline: none; padding: 0 8px; width: 120px;">
-                           
+                            
                     {{-- Tombol Next --}}
                     <a href="{{ route('admin.jadwal.index', array_merge(request()->query(), ['bulan'=>$nextBulan])) }}" 
                        style="display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; color: #64748b; border-radius: 6px; text-decoration: none; transition: 0.2s;"

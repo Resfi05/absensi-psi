@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('manajemen_waktus', function (Blueprint $table) {
+        Schema::create('manajemen_waktu', function (Blueprint $table) {
             $table->id();
+            $table->string('nama')->unique();
+            $table->integer('interval');
+            $table->enum('satuan', ['hari', 'minggu', 'bulan', 'tahun']);
             $table->timestamps();
         });
     }
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('manajemen_waktus');
+        Schema::dropIfExists('manajemen_waktu');
     }
 };
